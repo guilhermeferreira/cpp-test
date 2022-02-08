@@ -1,0 +1,96 @@
+image: guilhermeferreira/cpp-img:tag
+
+stages:
+  - build
+  - test
+  - lint
+  - deploy
+
+variables:
+  NETQASM_VERSION: 0.7.4
+
+build:
+  stage: build
+  tags: [qinc]
+  script:
+    - cmake -DCMAKE_BUILD_TYPE=Debug -S . -B Debug
+    - cmake --build Debug
+
+lint:
+  stage: lint
+  tags: [qinc]
+  script:
+    - ./scripts/check-format.sh
+
+c-tests:
+  stage: test
+  tags: [qinc]
+  script:
+    - cmake -DQNOS_ENABLE_TESTS=1 -S . -B UnitTests
+    - cmake --build UnitTests
+    - cmake --build UnitTests --target test
+    - ./scripts/gcov.sh
+    - lcov --list ./UnitTests/UnitTests.info
+  coverage: '/Total:\|\s*([0-9.]+%)\s.*$/'
+
+python-tests:
+  image: "python:3.8"
+  stage: test
+  tags: [qinc]
+  script:
+    - git clone https://${NETQASM_DEPLOY_TOKEN_USER}:${NETQASM_DEPLOY_TOKEN}@gitlab.tudelft.nl/qinc-wehner/netqasm/netqasm.git
+    - cd netqasm
+    - git checkout v${NETQASM_VERSION} -b ${NETQASM_VERSION}
+    - make install
+    - cd ../host/py
+    - pip install unittest-xml-reporting matplotlib pyserial pint pyvcd
+    - python -m xmlrunner --output-file testresults.xml discover -s=tests -p "test_*.py"
+  artifacts:
+    reports:
+      junit: testresults.xml
+
+#
+# This test depends on Docker and Gitlab. As the docker image is public, the
+# Dockerfile must have only public software. For private software, install
+# it in the .gitlab-ci.yml.
+#
+qemu-tests:
+  image: "guilhermemacielferreira/qemu:5.1.0"
+  stage: test
+  tags: [qemu-gmf]
+  variables:
+    HOST_IP: 192.168.2.210
+    QNOS_IP: 192.168.2.215
+    NODE: Node2
+    TEST_APP: "apps/bqc_5_3/app_client.py"
+  script:
+    - echo "Preparing QNodeOS..."
+    - ./platforms/qemu/tests.sh -c --host-ip ${HOST_IP} --qnos-ip ${QNOS_IP}
+    - echo "Building QNodeOS..."
+    - cmake -DCMAKE_BUILD_TYPE=Debug -DQNOS_QDEVICE=qmock -DQNOS_BOARD=microzed-qemu -DQNOS_NODE=${NODE} -S . -B Debug
+    - cmake --build Debug
+    - echo "Buiding NetQASM..."
+    - python3 -m pip install git+https://${NETQASM_DEPLOY_TOKEN_USER}:${NETQASM_DEPLOY_TOKEN}@gitlab.tudelft.nl/qinc-wehner/netqasm/netqasm.git@v${NETQASM_VERSION}
+    - echo "Creating virtual network interfaces..."
+    - ./platforms/qemu/tests.sh -u --host-ip ${HOST_IP} --qnos-ip ${QNOS_IP}
+    - echo "Executing QNodeOS..."
+    - robot -d test/results/ -i smoke -v HOST_IP:${HOST_IP} -v QNOS_IP:${QNOS_IP} -v TEST_APP:${TEST_APP} test/system/qnodeos.robot
+    - echo "Deleting virtual network interfaces..."
+    - ./platforms/qemu/tests.sh -d --host-ip ${HOST_IP} --qnos-ip ${QNOS_IP}
+  artifacts:
+    - results/
+
+deploy:
+  stage: deploy
+  tags: [qinc]
+  only:
+    - /^stable-.*/
+  script:
+    - cmake -DCMAKE_BUILD_TYPE=Release -S . -B Release
+    - cmake --build Release
+    - cmake --install Release
+  artifacts:
+    paths:
+      - bin/
+      - version.txt
+      - release.txt

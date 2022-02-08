@@ -1,0 +1,5 @@
+GET Key3
+GET Key1
+GET Key2
+GET Key4
+exit

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Form</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
+    </head>
+
+    <body>
+        <form class="contact1-form validate-form">
+
+            <span class="contact1-form-title">KVPStorage</span>
+
+            <div class="wrap-input1 validate-input" data-validate="Key is required">
+                <input class="input1" type="text" name="key" placeholder="Key">
+                <span class="shadow-input1"></span>
+            </div>
+            {{#response}}
+            <div class="wrap-input1 validate-input" data-validate="Value is required">
+                <input class="input1" type="text" name="value" placeholder="Value" value="{{value}}">
+                <span class="shadow-input1"></span>
+            </div>
+            {{/response}}
+
+            <div class="container-contact1-form-btn">
+                <button class="contact1-form-btn" formaction="/get">
+                <span>
+                    Get
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </span>
+                </button>
+                <button class="contact1-form-btn" formaction="/set">
+                <span>
+                    Set
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </span>
+                </button>
+                <button class="contact1-form-btn" formaction="/del">
+                <span>
+                    Delete
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </span>
+                </button>
+            </div>
+
+            <div class="container-contact1-form-btn">
+                <button class="contact1-form-btn" formaction="/store">
+                <span>
+                    Save
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </span>
+                </button>
+                <button class="contact1-form-btn" formaction="/exit">
+                <span>
+                    Close
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </span>
+                </button>
+            </div>
+
+        </form>
+    </body>
+
+</html>

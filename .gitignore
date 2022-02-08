@@ -1,0 +1,7 @@
+test.hxx
+include-what-you-use.log
+build/
+build_fuzz/
+build_benchmark/
+test/security/output/
+external/
