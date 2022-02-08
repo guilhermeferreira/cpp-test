@@ -1,0 +1,47 @@
+v1.1.4 - Test enhancement
+- Test: add klee for symbolic execution.
+- Test: add gprof to profile.
+- Test: add valgrind for dynamic analysis.
+- Test: add benchmark.
+- Docs: improve project documentation.
+
+v1.1.3 - Docker Deployment
+- Build the software using a Docker container.
+
+v1.1.2 - Web Interface
+- Add a website interface with Crow. 
+
+v1.1.1 - Qt Interface
+- Add a GUI with Qt5.
+
+v1.1.0 - Database Storage
+- Code enhancements.
+- Test: add security test with AFL fuzzing.
+- Test: add static analysis with cppcheck.
+
+v1.0.6 - Script Interface
+- Test: add a script interface to automate tests.
+
+v1.0.5 - C++17
+- Update GCC from 5.4.0 to 10.2.0.
+- Update CMake from 3.5.1 to 3.18.4
+- Bug fix: store only if there's something to store.
+
+v1.0.4 - Presentation
+- Bug fix: remove contents of the file before saving it.
+
+v1.0.3 - x x x x
+- Command history (not merged)
+ 
+v1.0.2 - Deliver
+- Bug fix: fix file creation.
+- Bug fix: fix file saving
+
+v1.0.1 - Testing
+- Test: add Unit Test with Google Test.
+- Test: add Integration Test with Tcl.
+- Bug fix: handle values with whitespaces.
+
+v1.0.0 - KVPStorage
+- File storage with INI format.
+- Command-line interface.

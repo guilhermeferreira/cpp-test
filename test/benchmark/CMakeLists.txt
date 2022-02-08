@@ -1,0 +1,50 @@
+# package: find external packages
+include(FindPkgConfig)
+
+# package: add Google Benchmark
+include(${CMAKE_SOURCE_DIR}/cmake/benchmark.cmake)
+
+# compiler: get the list of benchmark files
+file(GLOB BENCHMARK_SOURCES
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+)
+
+# compiler: creates the test binary
+add_executable(${BM}
+    ${BENCHMARK_SOURCES}
+)
+
+if (NOT CMAKE_CXX_INCLUDE_WHAT_YOU_USE)
+    # compiler: enable Unity Build
+    set_target_properties(${BM} PROPERTIES UNITY_BUILD ON)
+
+    # compiler: add precompiled headers (pch)
+    target_precompile_headers(${BM}
+        PRIVATE <benchmark/benchmark.h>
+    )
+endif()
+
+# compiler: pass destination directory
+set(TEST_DST_DIR
+    "/tmp/test/performance/"
+)
+add_definitions(-DTEST_DST_DIR="${TEST_DST_DIR}")
+
+# linker: link the program against the libraries
+target_link_libraries(${BM}
+    ${BENCHMARK_LIBRARIES}
+    ${TARGET}_interface
+    ${TARGET}_persistence
+)
+
+# make: create 'make benchmark' to run performance test
+add_custom_target(benchmark
+    COMMAND rm -Rf ${TEST_DST_DIR}
+    COMMAND mkdir ${TEST_DST_DIR}
+    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/input/database/database.* ${TEST_DST_DIR}
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${BM}
+    DEPENDS ${BM}
+)
+
+# cmake: install
+install(TARGETS ${BM} DESTINATION ${PROJECT_SOURCE_DIR})

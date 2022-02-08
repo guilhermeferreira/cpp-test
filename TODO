@@ -1,0 +1,13 @@
+[ ] Migrate tests from Tcl to Python, or leave two version
+
+[ ] Try Conan to manage dependencies.
+
+[ ] Finish the symbolic execution. May need a C program to test, because C++ doesn't seem to work fine. Discover if integer is the only variable type accepted.
+
+[ ] Execute test/system using Robot framework
+
+[ ] Run test/system embedded on top of QEMU
+
+[ ] Migrate test/integration/test.tcl to Python
+
+[ ] Load testing

@@ -1,0 +1,3 @@
+SET DeviceName BBBB
+GET DeviceName
+exit
