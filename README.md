@@ -42,21 +42,8 @@ This section describes the application.
 --------------------------------------------------------------------------------
 ### 1.1. Introduction
 
-In order to be able to (better) judge your technical abilities we have asked
-you to do this test case. The goal of this test case is to give you an
-opportunity to show off some of your coding abilities and to show how you
-tackle a given problem. You are expected to spend approximately 4-8 hours on
-this test case. We don't expect a perfect application that can do everything
-from you, however, when reviewing your application we will be looking for the
-following:
-
-    1.1.1. Project setup and structure
-    1.1.2. Code structure
-    1.1.3. Testing methodology
-    1.1.4. Documentation
-
-When you are done please combine your project files in a ZIP folder and send
-that back to us.
+This is a simple project to demonstrate my coding skills and to keep track of
+important tools.
 
 
 --------------------------------------------------------------------------------
