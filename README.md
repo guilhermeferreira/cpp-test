@@ -558,8 +558,9 @@ or using the provided script:
 
     $ ./benchmark.sh
 
-Through the performance test I discovered the DBStorage outperforms FileStorage
-with its load()/store() performing at O(1) whereas the latter performing at O(1).
+Through the performance test, I discovered that the `DBStorage` outperforms
+`FileStorage`. `DBStorage::load()` and `DBStorage::store()` perform at O(1),
+whereas `FileStorage::load()` and `FileStorage::store()` performs at O(n).
 
 
 --------------------------------------------------------------------------------
@@ -571,7 +572,7 @@ interview on October 19, 2020.
 | Tool                  | Version                                                |
 |-----------------------|--------------------------------------------------------|
 | Programmming language | C++17 (ISO/IEC 14882:2017). Required by section 1.3.1. |
-| Compiler              | GCC (10.2.0)                                           |
+| Compiler              | GCC (11.2.0)                                           |
 |                       | Clang (9.0.0)                                          |
 | C Library (libc)      | GNU libc (2.23)                                        |
 | Code convention       | Google Style Guide. Mentioned in the interview.        |
