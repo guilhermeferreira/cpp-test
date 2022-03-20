@@ -9,7 +9,7 @@ ARG BOOST_VERSION="1_68_0"
 ARG CMAKE_VERSION="3.18.4"
 ARG GTEST_VERSION="1.10.0"
 ARG GBENCH_VERSION="1.6.0"
-ARG CPPCHECK_VERSION="2.3"
+ARG CPPCHECK_VERSION="2.7"
 ARG SQLITE_VERSION="3340000"
 ARG CROW_VERSION="0.1"
 ARG AFL_VERSION="2.57b"
@@ -120,7 +120,7 @@ RUN tar xf benchmark-${GBENCH_VERSION}.tar.gz && \
     rm -Rf benchmark-${GBENCH_VERSION}/ && \
     rm benchmark-${GBENCH_VERSION}.tar.gz
 
-# Cppcheck (2.3)
+# Cppcheck (2.7)
 # NOTE: Command "RUN apt-get -qq install cppcheck" installs cppcheck 1.86
 RUN tar xf cppcheck-${CPPCHECK_VERSION}.tar.gz && \
     cd cppcheck-${CPPCHECK_VERSION} && \
