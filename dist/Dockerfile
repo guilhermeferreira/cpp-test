@@ -10,7 +10,7 @@ ARG CMAKE_VERSION="3.22.3"
 ARG GTEST_VERSION="1.11.0"
 ARG GBENCH_VERSION="1.6.0"
 ARG CPPCHECK_VERSION="2.7"
-ARG SQLITE_VERSION="3340000"
+ARG SQLITE_VERSION="3380100"
 ARG CROW_VERSION="0.1"
 ARG AFL_VERSION="2.57b"
 ARG MINISAT_VERSION="2.2.1"
@@ -132,7 +132,7 @@ RUN tar xf cppcheck-${CPPCHECK_VERSION}.tar.gz && \
     rm -Rf cppcheck-${CPPCHECK_VERSION} && \
     rm cppcheck-${CPPCHECK_VERSION}.tar.gz
 
-# SQLite3 (3.34.0)
+# SQLite3 (3.38.1)
 RUN tar xf sqlite-autoconf-${SQLITE_VERSION}.tar.gz && \
     cd sqlite-autoconf-${SQLITE_VERSION}/ && \
     ./configure --prefix=/usr && \
