@@ -6,7 +6,7 @@ WORKDIR /usr/src/
 # Packet version
 ARG LCOV_VERSION="1.15"
 ARG BOOST_VERSION="1_68_0"
-ARG CMAKE_VERSION="3.18.4"
+ARG CMAKE_VERSION="3.22.3"
 ARG GTEST_VERSION="1.11.0"
 ARG GBENCH_VERSION="1.6.0"
 ARG CPPCHECK_VERSION="2.7"
@@ -87,7 +87,7 @@ RUN pip3 install lit
 RUN pip3 install tabulate
 RUN pip3 install wllvm
 
-# CMake (3.18.4)
+# CMake (3.22.3)
 # NOTE: Command "RUN apt-get -qq install cmake" installs cmake 3.13.4, but we
 #       need at least cmake 3.18.4
 RUN tar xf cmake-${CMAKE_VERSION}.tar.gz && \
