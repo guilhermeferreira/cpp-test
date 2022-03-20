@@ -7,7 +7,7 @@ WORKDIR /usr/src/
 ARG LCOV_VERSION="1.15"
 ARG BOOST_VERSION="1_68_0"
 ARG CMAKE_VERSION="3.18.4"
-ARG GTEST_VERSION="1.10.0"
+ARG GTEST_VERSION="1.11.0"
 ARG GBENCH_VERSION="1.6.0"
 ARG CPPCHECK_VERSION="2.7"
 ARG SQLITE_VERSION="3340000"
@@ -99,8 +99,8 @@ RUN tar xf cmake-${CMAKE_VERSION}.tar.gz && \
     rm -Rf cmake-${CMAKE_VERSION}/ && \
     rm cmake-${CMAKE_VERSION}.tar.gz
 
-# Google Test (1.10.0)
-RUN tar xf release-${GTEST_VERSION}.tar.gz && \
+# Google Test (1.11.0)
+RUN tar xf googletest-release-${GTEST_VERSION}.tar.gz && \
     cd googletest-release-${GTEST_VERSION}/ && \
     mkdir build && \
     cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -S . -B build && \
@@ -108,7 +108,7 @@ RUN tar xf release-${GTEST_VERSION}.tar.gz && \
     cmake --build build --target install && \
     cd .. && \
     rm -Rf googletest-release-${GTEST_VERSION}/ && \
-    rm release-${GTEST_VERSION}.tar.gz
+    rm googletest-release-${GTEST_VERSION}.tar.gz
 
 # Google Benchmark (1.6.0)
 RUN tar xf benchmark-${GBENCH_VERSION}.tar.gz && \
