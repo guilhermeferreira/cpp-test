@@ -8,7 +8,7 @@ ARG LCOV_VERSION="1.15"
 ARG BOOST_VERSION="1_68_0"
 ARG CMAKE_VERSION="3.22.3"
 ARG GTEST_VERSION="1.11.0"
-ARG GBENCH_VERSION="1.6.0"
+ARG GBENCH_VERSION="1.6.1"
 ARG CPPCHECK_VERSION="2.7"
 ARG SQLITE_VERSION="3380100"
 ARG CROW_VERSION="0.1"
@@ -81,6 +81,7 @@ RUN apt-get -qq install libsqlite3-dev
 RUN apt-get -qq install gcc-multilib
 RUN apt-get -qq install g++-multilib
 RUN apt-get -qq install unzip
+RUN apt-get -qq install python
 RUN apt-get -qq install python3
 RUN apt-get -qq install python3-pip
 RUN pip3 install lit
@@ -110,7 +111,7 @@ RUN tar xf googletest-release-${GTEST_VERSION}.tar.gz && \
     rm -Rf googletest-release-${GTEST_VERSION}/ && \
     rm googletest-release-${GTEST_VERSION}.tar.gz
 
-# Google Benchmark (1.6.0)
+# Google Benchmark (1.6.1)
 RUN tar xf benchmark-${GBENCH_VERSION}.tar.gz && \
     cd benchmark-${GBENCH_VERSION}/ && \
     cmake -E make_directory build && \
