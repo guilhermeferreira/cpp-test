@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
 
     try {
         std::shared_ptr<Storage> storage{ StorageFactory::create(database) };
-        Core core{ std::move(interface), std::move(storage) };
+        Core core{ interface, storage };
         core.loop();
     } catch (const std::runtime_error &ex) {
         std::cerr << ex.what() << std::endl;
