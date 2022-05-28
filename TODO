@@ -1,3 +1,19 @@
+Update packages.
+- [ ] Update README
+- [ ] Update Dockerfile
+
+Packeges
+- [x] GCC 10.2.0 -> 11.2.0
+- [x] CMake 3.18.4 -> 3.22.3 [https://github.com/Kitware/CMake/releases/download/v3.22.3/cmake-3.22.3.tar.gz]
+- [x] Google Test 1.10.0 -> 1.13.0 [https://github.com/google/googletest/archive/refs/tags/release-1.13.0.tar.gz]
+- [ ] Google Benchmark 1.6.0 -> 1.6.1 [https://github.com/google/benchmark/archive/refs/tags/v1.6.1.tar.gz]
+- [x] SQLite 3.34.0 -> 3.38.0 [https://sqlite.org/2022/sqlite-autoconf-3380000.tar.gz]
+- [x] Cppcheck 2.3 -> 2.7 [https://github.com/danmar/cppcheck/archive/2.7.tar.gz]
+- [ ] Valgrind 3.14.0 -> 3.16.1
+- [ ] AFL 2.57b -> AFL++ 4.00c [https://aflplus.plus/]
+
+[ ] Remove unit test build from build.sh
+
 [ ] Migrate tests from Tcl to Python, or leave two version
 
 [ ] Try Conan to manage dependencies.

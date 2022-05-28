@@ -501,9 +501,9 @@ receives ill-formed input. We use fuzzing as security test.
 Fuzzing allows the creation of many random inputs to check if the program
 crashes.
 
-We use American Fuzzy Lop (AFL) to fuzzing. This tools requires intrumentation
-of the source code in order to properly work. The instrumentation is done by
-the AFL compiler wrappers, afl-gcc and afl-g++.
+We use American Fuzzy Lop (AFL) for application fuzzing. This tools requires
+intrumentation of the source code in order to properly work. The instrumentation
+is done by the AFL compiler wrappers, afl-gcc and afl-g++.
 
 After the program is instrumented, we run it with AFL fuzzer (afl-fuzz).
 
@@ -515,6 +515,10 @@ For example:
 or using the provided script:
 
     $ ./security.sh
+
+For network fuzzing, we use SPIKE.
+
+    TODO
 
 
 #### 2.6.5. PERFORMANCE TEST
@@ -583,10 +587,11 @@ interview on October 19, 2020.
 | Dynamic Analysis      | Valgrind (3.14.0)                                      |
 | Symbolic Execution    | KLEE (2.2)                                             |
 |                       |                                                        |
-| Unit test             | Google Test (1.10.0)                                   |
+| Unit test             | Google Test (1.13.0)                                   |
 | Integration test      | TCL/Expect (5.45)                                      |
 | Scripting             | Bash shell (4.3.48)                                    |
-| Fuzzer                | American Fuzzy Lop (2.57b)                             |
+| Application Fuzzer    | American Fuzzy Lop (2.57b)                             |
+| Network Fuzzer        | SPIKE (2.9)
 | Coverage              | lcov (1.15)                                            |
 | Benchmark             | Google Benchmark (1.6.0)                               |
 | Database              | SQLite3 (3.34.0)                                       |

@@ -12,10 +12,12 @@ ARG GBENCH_VERSION="1.6.1"
 ARG CPPCHECK_VERSION="2.7"
 ARG SQLITE_VERSION="3380100"
 ARG CROW_VERSION="0.1"
-ARG AFL_VERSION="2.57b"
+ARG AFL_VERSION="4.01c"
+ARG SPIKE_VERSION="2.9"
 ARG MINISAT_VERSION="2.2.1"
 ARG STP_VERSION="2.3.3"
-ARG LLVM_VERSION="9.0.0"
+ARG LLVM_VERSION="10.0.0"
+ARG KLEE_LLVM_VERSION="10"
 ARG KLEE_ULIB_VERSION="1.2"
 ARG KLEE_VERSION="2.2"
 
@@ -42,7 +44,8 @@ RUN git clone https://github.com/linux-test-project/lcov.git && \
     cd lcov && \
     git checkout v${LCOV_VERSION} -b ${LCOV_VERSION} && \
     make PREFIX=/usr/ install && \
-    cd ..
+    cd .. && \
+    rm -Rf lcov
 
 # Boost (1.68.0) required by Crow
 #                Crow 0.1 works with maximum Boost 1.68.0
@@ -63,7 +66,7 @@ RUN apt-get -qq install qtchooser
 RUN apt-get -qq install qt5-qmake
 RUN apt-get -qq install qtbase5-dev-tools
 
-# Valgrind (3.14.0)
+# Valgrind (3.16.1)
 RUN apt-get -qq install valgrind
 
 # Packages required by KLEE
@@ -100,7 +103,7 @@ RUN tar xf cmake-${CMAKE_VERSION}.tar.gz && \
     rm -Rf cmake-${CMAKE_VERSION}/ && \
     rm cmake-${CMAKE_VERSION}.tar.gz
 
-# Google Test (1.11.0)
+# Google Test (1.13.0)
 RUN tar xf googletest-release-${GTEST_VERSION}.tar.gz && \
     cd googletest-release-${GTEST_VERSION}/ && \
     mkdir build && \
@@ -154,14 +157,34 @@ RUN tar xf v${CROW_VERSION}.tar.gz && \
     rm -Rf crow-${CROW_VERSION}/ && \
     rm v${CROW_VERSION}.tar.gz
 
-# American Fuzzy Lop (2.57b)
-RUN tar xf v${AFL_VERSION}.tar.gz && \
-    cd AFL-${AFL_VERSION}/ && \
+# AFL++ (4.01c)
+RUN git clone https://github.com/AFLplusplus/AFLplusplus.git && \
+    cd AFLplusplus/ && \
+    git checkout -b v${AFL_VERSION} ${AFL_VERSION} && \
     make && \
     make install && \
     cd .. && \
-    rm -Rf AFL-${AFL_VERSION}/ && \
-    rm v${AFL_VERSION}.tar.gz
+    rm AFLplusplus
+
+# SPIKE (2.9)
+RUN git clone https://gitlab.com/kalilinux/packages/spike.git && \
+    cd spike/src/ && \
+    git checkout -b v${SPIKE_VERSION} upstream/${SPIKE_VERSION} && \
+    aclocal && \
+    automake --add-missing && \
+    ./configure && \
+    make && \
+    cp generic_chunked /usr/local/bin/ && \
+    cp generic_listen_tcp /usr/local/bin/ && \
+    cp generic_send_tcp /usr/local/bin/ && \
+    cp generic_send_udp /usr/local/bin/ && \
+    cp generic_web_server_fuzz /usr/local/bin/ && \
+    cp generic_web_server_fuzz2 /usr/local/bin/ && \
+    cp webfuzz /usr/local/bin/ && \
+    cp ss_spike /usr/local/bin/ && \
+    cp libdlrpc.so /usr/lib/ && \
+    cd ../.. && \
+    rm -Rf spike
 
 # MiniSAT (2.2.1) required by STP
 RUN git clone https://github.com/stp/minisat.git && \
@@ -184,7 +207,7 @@ RUN git clone https://github.com/stp/stp.git && \
     cd .. && \
     rm -Rf stp
 
-# LLVM (9.0.0) required by KLEE
+# LLVM (10.0.0) required by KLEE
 RUN git clone https://github.com/llvm/llvm-project.git && \
     cd llvm-project && \
     git checkout -b ${LLVM_VERSION} llvmorg-${LLVM_VERSION} && \
@@ -208,7 +231,7 @@ RUN cd /tmp && \
 RUN git clone https://github.com/klee/klee.git && \
     cd klee && \
     git checkout -b v${KLEE_VERSION} v${KLEE_VERSION} && \
-    LLVM_VERSION=9 BASE=/tmp REQUIRES_RTTI=1 DISABLE_ASSERTIONS=1 ENABLE_DEBUG=0 ENABLE_OPTIMIZED=1 ./scripts/build/build.sh libcxx && \
+    LLVM_VERSION=${KLEE_LLVM_VERSION} BASE=/tmp REQUIRES_RTTI=1 DISABLE_ASSERTIONS=1 ENABLE_DEBUG=0 ENABLE_OPTIMIZED=1 ./scripts/build/build.sh libcxx && \
     mkdir build && \
     cd build && \
     cmake \
