@@ -44,9 +44,14 @@ if [ ! -d $GTEST_REG_DIR ]; then
 	if [ "$COMPILER" == "" ]; then
 		COMPILER=g++;
 	fi
-	cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DBUILD_SHARED_LIBS=ON
-	make
-	make install
+	cmake -S . -B ${GTEST_BUILD_TYPE} \
+          -DCMAKE_INSTALL_PREFIX=/usr \
+          -DCMAKE_BUILD_TYPE=${GTEST_BUILD_TYPE} \
+          -DCMAKE_C_COMPILER=$CC \
+          -DCMAKE_CXX_COMPILER=$CXX \
+          -DBUILD_SHARED_LIBS=ON
+	cmake --build ${GTEST_BUILD_TYPE}
+	cmake --build ${GTEST_BUILD_TYPE} --target install
 
 	popd
 

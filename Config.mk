@@ -3,15 +3,16 @@ EXTERNAL_DIR=$BUILD_DIR
 
 # Boost (1.68.0)
 BOOST_FILE=boost_1_68_0.tar.gz
-BOOST_LINK=https://dl.bintray.com/boostorg/release/1.68.0/source/$BOOST_FILE
+BOOST_LINK=https://dl.bintray.com/boostorg/release/1.68.0/source/${BOOST_FILE}
 BOOST_DIR=boost_1_68_0
 
 # Google Test
-GTEST_FILE=googletest-release-1.10.0.tar.gz
-GTEST_LINK=https://github.com/google/googletest/archive/$GTEST_FILE
-GTEST_REG_DIR=googletest-release-reg-1.10.0
-GTEST_SAN_DIR=googletest-release-san-1.10.0
-GTEST_DIR=googletest-release-1.10.0
+GTEST_FILE=v1.13.0.tar.gz
+GTEST_LINK=https://github.com/google/googletest/archive/refs/tags/${GTEST_FILE}
+GTEST_REG_DIR=googletest-reg-1.13.0
+GTEST_SAN_DIR=googletest-san-1.13.0
+GTEST_DIR=googletest-1.13.0
+GTEST_BUILD_TYPE=Debug
 
 # American Fuzzy Lop (AFL)
 AFL_FILE=v2.57b.tar.gz
