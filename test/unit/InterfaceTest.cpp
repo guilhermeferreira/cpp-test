@@ -1,6 +1,3 @@
-#ifndef INTERFACE_TEST_H_INCLUDED
-#define INTERFACE_TEST_H_INCLUDED
-
 #include "interface/Interface.hpp"
 
 #include <gtest/gtest.h>
@@ -77,5 +74,3 @@ TEST(InterfaceTestSuite, parse_set_with_whitespace)
 //--------------------------------------------------------------------------
 
 } // test::unit
-
-#endif // INTERFACE_TEST_H_INCLUDED

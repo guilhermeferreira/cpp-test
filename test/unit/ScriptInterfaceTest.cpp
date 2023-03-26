@@ -1,6 +1,3 @@
-#ifndef SCRIPT_INTERFACE_TEST_HPP_INCLUDED
-#define SCRIPT_INTERFACE_TEST_HPP_INCLUDED
-
 #include "interface/ScriptInterface.hpp"
 
 #include <gtest/gtest.h>
@@ -45,5 +42,3 @@ TEST(ScriptInterfaceTestSuite, reply)
 //--------------------------------------------------------------------------
 
 } // test::unit
-
-#endif // SCRIPT_INTERFACE_TEST_HPP_INCLUDED

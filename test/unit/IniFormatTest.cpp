@@ -1,6 +1,3 @@
-#ifndef INI_FORMAT_TEST_H_INCLUDED
-#define INI_FORMAT_TEST_H_INCLUDED
-
 #include "persistence/IniFormat.hpp"
 
 #include <sstream>
@@ -138,5 +135,3 @@ TEST(IniFormatTestSuite, parse)
 //--------------------------------------------------------------------------
 
 } // test::unit
-
-#endif // INI_FORMAT_TEST_H_INCLUDED

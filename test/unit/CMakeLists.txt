@@ -1,8 +1,7 @@
 # package: find external packages
-include(FindPkgConfig)
+include(GoogleTest)
 
-# package: add Google Test library
-include(${CMAKE_SOURCE_DIR}/cmake/gtest.cmake)
+enable_testing()
 
 # compiler: get the list of source code files
 get_property(TARGET_SOURCES 
@@ -10,17 +9,15 @@ get_property(TARGET_SOURCES
     TARGET_SOURCES_PROP
 )
 
-set(TEST_PRE_COMP_HDR test.hxx)
-
-# make: create dynamic header with all unit test
-add_custom_target(${TEST_PRE_COMP_HDR}
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/test.sh ${TEST_PRE_COMP_HDR} ${CMAKE_CURRENT_SOURCE_DIR}
+# cmake: get all cpp
+file(GLOB TEST_SOURCES
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
 )
 
 # compiler: creates the test binary
 add_executable(${TEST}
     ${TARGET_SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp
+    ${TEST_SOURCES}
 )
 
 if (NOT CMAKE_CXX_INCLUDE_WHAT_YOU_USE)
@@ -28,28 +25,37 @@ if (NOT CMAKE_CXX_INCLUDE_WHAT_YOU_USE)
     set_target_properties(${TEST} PROPERTIES UNITY_BUILD ON)
 endif()
 
+# compiler: pass destination directory
+set(TEST_DST_DIR
+    "/tmp/test/unit/"
+)
+add_definitions(-DTEST_DST_DIR="${TEST_DST_DIR}")
+
+# make: copy configuration files need by the test
+add_custom_target(copyfiles
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/test.sh ${CMAKE_CURRENT_SOURCE_DIR} ${TEST_DST_DIR}
+)
+
 # make: add dependency for test binary
 add_dependencies(${TEST}
-    ${TEST_PRE_COMP_HDR}
+    copyfiles
 )
 
 # linker: link the program against the libraries
 target_link_libraries(${TEST}
-    ${GTEST_LIBRARIES}
-    ${GMOCK_LIBRARIES}
-    ${TARGET}_interface
-    ${TARGET}_persistence
+    PRIVATE ${TARGET}_interface
+    PRIVATE ${TARGET}_persistence
+    PRIVATE gtest
+    PRIVATE gtest_main
+    PRIVATE gmock
+    PRIVATE gmock_main
+    PRIVATE gcov
 )
 
 # make: create 'make check' to run unit test
 add_custom_target(check
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${TEST} --gtest_repeat=5 --gtest_shuffle
     DEPENDS ${TEST}
-)
-
-# linker: link the program against the libraries
-target_link_libraries(${TEST}
-    -lgcov
 )
 
 # make: create 'make coverage' to get code coverage
@@ -68,6 +74,9 @@ if (PROFILER)
         DEPENDS ${TEST}
     )
 endif()
+
+# cmake: 
+gtest_discover_tests(${TEST} XML_OUTPUT_DIR ${GTEST_REPORT_DIR})
 
 # cmake: install
 install(TARGETS ${TEST} DESTINATION ${PROJECT_SOURCE_DIR})

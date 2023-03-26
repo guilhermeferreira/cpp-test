@@ -1,6 +1,3 @@
-#ifndef DB_STORAGE_TEST_H_INCLUDED
-#define DB_STORAGE_TEST_H_INCLUDED
-
 #include "persistence/DBStorage.hpp"
 
 #include <stdexcept>
@@ -162,5 +159,3 @@ TEST_F(DBStorageTestFixture, del)
 //--------------------------------------------------------------------------
 
 } // test::unit
-
-#endif // DB_STORAGE_TEST_H_INCLUDED
