@@ -100,9 +100,12 @@ void sendHtml(
     crow::response &res,
     crow::mustache::context &ctx)
 {
-    std::string contents{
-        crow::mustache::load(web_path.string() + filename + ".html").render(ctx)
-    };
+    auto page = crow::mustache::load(web_path.string() + filename + ".html");
+    std::string contents{ page.render(ctx) };
+
+    // TODO contents is empty!!!!
+    //      (gdb) p contents.c_str()
+    //      $5 = 0x7fd6177fc3c0 ""
 
     if (!contents.empty()) {
         res.set_header("Content-Type", "text/html");
@@ -198,12 +201,13 @@ WebInterface::WebInterface(const uint16_t port)
 void WebInterface::sendCommand(const std::string &cmd)
 {
     assert(!cmd.empty());
+    {
+        std::lock_guard<std::mutex> lk{ _commands_lock };
 
-    std::lock_guard<std::mutex> lk{ _commands_lock };
+        _commands.push_back(cmd);
+    }
 
-    _commands.push_back(cmd);
-
-    _commands_cond.notify_all();
+    _commands_cond.notify_one();
 }
 
 //-----------------------------------------------------------------------------
