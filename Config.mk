@@ -14,6 +14,14 @@ GTEST_SAN_DIR=googletest-san-1.13.0
 GTEST_DIR=googletest-1.13.0
 GTEST_BUILD_TYPE=Debug
 
+# Google Benchmark
+GBENCH_FILE=v1.7.1.tar.gz
+GBENCH_LINK=https://github.com/google/benchmark/archive/refs/tags/${GBENCH_FILE}
+GBENCH_REG_DIR=benchmark-reg-1.7.1
+GBENCH_SAN_DIR=benchmark-san-1.7.1
+GBENCH_DIR=benchmark-1.7.1
+GBENCH_BUILD_TYPE=Debug
+
 # American Fuzzy Lop (AFL)
 AFL_FILE=v2.57b.tar.gz
 AFL_LINK=https://github.com/google/AFL/archive/$AFL_FILE
