@@ -591,9 +591,9 @@ interview on October 19, 2020.
 | Integration test      | TCL/Expect (5.45)                                      |
 | Scripting             | Bash shell (4.3.48)                                    |
 | Application Fuzzer    | American Fuzzy Lop (2.57b)                             |
-| Network Fuzzer        | SPIKE (2.9)
+| Network Fuzzer        | SPIKE (2.9)                                            |
 | Coverage              | lcov (1.15)                                            |
-| Benchmark             | Google Benchmark (1.6.0)                               |
+| Benchmark             | Google Benchmark (1.7.0)                               |
 | Database              | SQLite3 (3.34.0)                                       |
 | Libraries             | Boost (1.68.0)                                         |
 |                       | Crow (0.1)                                             |
