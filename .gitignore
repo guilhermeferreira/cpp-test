@@ -5,3 +5,5 @@ build_fuzz/
 build_benchmark/
 test/security/output/
 external/
+dist/
+Debug/
