@@ -29,11 +29,15 @@ std::shared_ptr<Interface> InterfaceFactory::create(
 
     if (uiname.empty()) {
         return std::make_shared<TerminalInterface>();
+#ifdef WINDOW_INTERFACE
     } else if (InterfaceFactory::WINDOW_INTERFACE_ARG == uiname) {
         return std::make_shared<WindowInterface>(argc, argv);
+#endif // WINDOW_INTERFACE
+#ifdef WEB_INTERFACE
     } else if (InterfaceFactory::WEB_INTERFACE_ARG == uiname) {
         constexpr uint16_t PORT{ 8080 };
         return std::make_shared<WebInterface>(PORT);
+#endif // WEB_INTERFACE
     } else {
         return std::make_shared<ScriptInterface>(std::string(uiname));
     }

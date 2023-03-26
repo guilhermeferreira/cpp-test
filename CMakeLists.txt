@@ -27,6 +27,8 @@ if ((NOT CMAKE_C_COMPILER) AND (NOT CMAKE_CXX_COMPILER))
 endif()
 
 # cmake: options
+option(WINDOW_INTERFACE "Enable Qt window interface" OFF)
+option(WEB_INTERFACE "Enable Crow web interface" OFF)
 option(COVERAGE "Code coverage" ON)
 option(PROFILER "Code profiler" ON)
 option(SANITIZER "Address sanitizer" ON)
@@ -65,6 +67,18 @@ add_definitions(
     -Wcast-qual
     -Wconversion
 )
+
+# cmake: window interface
+if (WINDOW_INTERFACE)
+    # compiler: add window interface define
+    add_definitions(-DWINDOW_INTERFACE)
+endif()
+
+# cmake: web interface
+if (WEB_INTERFACE)
+    # compiler: add web interface define
+    add_definitions(-DWEB_INTERFACE)
+endif()
 
 # cmake: coverage code
 if (COVERAGE)
