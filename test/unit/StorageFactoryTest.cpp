@@ -1,6 +1,3 @@
-#ifndef STORAGE_FACTORY_TEST_H_INCLUDED
-#define STORAGE_FACTORY_TEST_H_INCLUDED
-
 #include "persistence/StorageFactory.hpp"
 
 #include <filesystem>
@@ -132,5 +129,3 @@ TEST_F(StorageFactoryTestFixture, create_failure_invalid_extension)
 //--------------------------------------------------------------------------
 
 } // test::unit
-
-#endif // STORAGE_FACTORY_TEST_H_INCLUDED

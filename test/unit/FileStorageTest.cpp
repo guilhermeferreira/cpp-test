@@ -1,6 +1,3 @@
-#ifndef FILE_STORAGE_TEST_H_INCLUDED
-#define FILE_STORAGE_TEST_H_INCLUDED
-
 #include "persistence/FileStorage.hpp"
 
 #include <stdexcept>
@@ -130,5 +127,3 @@ TEST_F(FileStorageTestFixture, del)
 //--------------------------------------------------------------------------
 
 } // test::unit
-
-#endif // FILE_STORAGE_TEST_H_INCLUDED

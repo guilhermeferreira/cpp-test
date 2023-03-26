@@ -1,6 +1,3 @@
-#ifndef INTERFACE_FACTORY_TEST_H_INCLUDED
-#define INTERFACE_FACTORY_TEST_H_INCLUDED
-
 #include "interface/InterfaceFactory.hpp"
 
 #include <stdexcept>
@@ -57,9 +54,9 @@ TEST(InterfaceFactoryTestSuite, create_script_interface)
 
 //--------------------------------------------------------------------------
 
+#ifdef WINDOW_INTERFACE
 TEST(InterfaceFactoryTestSuite, create_window_interface)
 {
-#ifdef WINDOW_INTERFACE
 	// Empty ui means terminal
 	const std::string ui{ InterfaceFactory::WINDOW_INTERFACE_ARG };
 	constexpr int argc { 2 };
@@ -82,11 +79,9 @@ TEST(InterfaceFactoryTestSuite, create_window_interface)
 	// Check correct derived class
 	std::shared_ptr<WindowInterface> window{ std::dynamic_pointer_cast<WindowInterface>(interface) };
 	EXPECT_TRUE(window);
-#endif
 }
+#endif // WINDOW_INTERFACE
 
 //--------------------------------------------------------------------------
 
 } // test::unit
-
-#endif // INTERFACE_FACTORY_TEST_H_INCLUDED

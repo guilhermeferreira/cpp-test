@@ -1,6 +1,3 @@
-#ifndef CORE_TEST_H_INCLUDED
-#define CORE_TEST_H_INCLUDED
-
 #include "Core.hpp"
 
 #include <map>
@@ -151,5 +148,3 @@ TEST(CoreTestSuite, special_command)
 //--------------------------------------------------------------------------
 
 } // test::unit
-
-#endif // CORE_TEST_H_INCLUDED

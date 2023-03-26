@@ -1,6 +1,3 @@
-#ifndef TERMINAL_INTERFACE_TEST_HPP_INCLUDED
-#define TERMINAL_INTERFACE_TEST_HPP_INCLUDED
-
 #include "interface/TerminalInterface.hpp"
 
 #include <gtest/gtest.h>
@@ -26,5 +23,3 @@ TEST(TerminalInterfaceTestSuite, reply)
 //--------------------------------------------------------------------------
 
 } // test::unit
-
-#endif // TERMINAL_INTERFACE_TEST_HPP_INCLUDED
