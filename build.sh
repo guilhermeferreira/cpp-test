@@ -15,6 +15,7 @@ cmake -S . -B ${BUILD_DIR} \
       -DCMAKE_BUILD_TYPE=${BUILD_DIR} \
       -DCMAKE_CXX_COMPILER=g++ \
       -DCMAKE_C_COMPILER=gcc \
+      -DCMAKE_EXPORT_COMPILE_COMMANDS=On \
       -DSANITIZER=Off \
       -DPROFILER=Off \
       -DCOVERAGE=On
