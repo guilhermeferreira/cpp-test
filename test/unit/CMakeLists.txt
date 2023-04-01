@@ -1,4 +1,13 @@
-# package: find external packages
+# package: download and unpack Google Test at configure time
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY    https://github.com/google/googletest.git
+    GIT_TAG           v1.13.0
+)
+FetchContent_MakeAvailable(googletest)
+
+# package: include external package
 include(GoogleTest)
 
 enable_testing()

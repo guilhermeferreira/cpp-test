@@ -1,8 +1,11 @@
-# package: find external packages
-include(FindPkgConfig)
-
-# package: add Google Benchmark
-include(${CMAKE_SOURCE_DIR}/cmake/benchmark.cmake)
+# package: download and unpack Google Benchmark at configure time
+include(FetchContent)
+FetchContent_Declare(
+    benchmark
+    GIT_REPOSITORY    https://github.com/google/benchmark.git
+    GIT_TAG           v1.7.1
+)
+FetchContent_MakeAvailable(benchmark)
 
 # compiler: get the list of benchmark files
 file(GLOB BENCHMARK_SOURCES
@@ -32,13 +35,13 @@ add_definitions(-DTEST_DST_DIR="${TEST_DST_DIR}")
 
 # linker: link the program against the libraries
 target_link_libraries(${BM}
-    ${BENCHMARK_LIBRARIES}
+    benchmark::benchmark
     ${TARGET}_interface
     ${TARGET}_persistence
 )
 
 # make: create 'make benchmark' to run performance test
-add_custom_target(benchmark
+add_custom_target(bench
     COMMAND rm -Rf ${TEST_DST_DIR}
     COMMAND mkdir ${TEST_DST_DIR}
     COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/input/database/database.* ${TEST_DST_DIR}
