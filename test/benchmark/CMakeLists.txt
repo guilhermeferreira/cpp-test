@@ -35,9 +35,9 @@ add_definitions(-DTEST_DST_DIR="${TEST_DST_DIR}")
 
 # linker: link the program against the libraries
 target_link_libraries(${BM}
-    benchmark::benchmark
     ${TARGET}_interface
     ${TARGET}_persistence
+    benchmark_main
 )
 
 # make: create 'make benchmark' to run performance test
