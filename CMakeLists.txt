@@ -120,6 +120,7 @@ endif()
 if (NOT FUZZING AND SANITIZER)
     # compiler: add address sanitizer (ASan)
     add_compile_options(
+        -fno-omit-frame-pointer
         -fsanitize=address
     )
 
