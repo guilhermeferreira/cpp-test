@@ -7,6 +7,9 @@ include(${CMAKE_SOURCE_DIR}/cmake/thread.cmake)
 # package: add Boost library
 include(${CMAKE_SOURCE_DIR}/cmake/boost.cmake)
 
+# package: add {fmt} library
+include(${CMAKE_SOURCE_DIR}/cmake/fmt.cmake)
+
 if (WINDOW_INTERFACE)
     # package: add Qt5 library
     include(${CMAKE_SOURCE_DIR}/cmake/qt5.cmake)
@@ -61,4 +64,5 @@ target_link_libraries(${TARGET}_interface
     ${Threads_LIBRARIES}
     ${Qt5_LIBRARIES}
     ${Boost_LIBRARIES}
+    fmt
 )

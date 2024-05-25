@@ -2,8 +2,9 @@
 
 #include <cassert>     // for assert
 #include <filesystem>  // for exists, is_regular_file
-#include <iostream>    // for cout
 #include <stdexcept>   // for runtime_error
+
+#include <fmt/core.h>
 
 
 //-----------------------------------------------------------------------------
@@ -47,7 +48,7 @@ void ScriptInterface::reply(const std::string_view resp)
 {
     assert(_script.is_open());
 
-    std::cout << resp << std::endl;
+    fmt::println("{}", resp);
 }
 
 //-----------------------------------------------------------------------------

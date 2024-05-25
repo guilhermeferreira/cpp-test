@@ -4,11 +4,13 @@
 #include <getopt.h>                        // for getopt_long, required_argu...
 
 // C++ headers
-#include <iostream>                        // for operator<<, endl, basic_os...
 #include <memory>                          // for shared_ptr
 #include <stdexcept>                       // for runtime_error
 #include <string>                          // for string
 #include <utility>                         // for move, pair, make_pair
+
+// {fmt}
+#include <fmt/core.h>
 
 // Application headers
 #include "Core.hpp"                        // for Core
@@ -21,15 +23,14 @@
 void printUsage();
 void printUsage()
 {
-    std::cout << "Usage: KVPStorage [OPTION]\n" << std::endl;
-    std::cout << "Store and retrieve settings and other string values." << std::endl;
-    std::cout << "  -d, --database FILENAME       database file name" << std::endl;
-    std::cout << "  -u, --ui   [SCRIPT|web|gui]   execute commands from SCRIPT file,\n"
-              << "                                display a Webbrowser instead of command line,\n"
-              << "                                display a Graphical User Interface.\n"
-              << "                                If no --ui is given, the program executes at Command Line"
-              << std::endl;
-    std::cout << "  -h, --help                    print this help" << std::endl;
+    fmt::println("Usage: KVPStorage [OPTION]");
+    fmt::println("Store and retrieve settings and other string values.");
+    fmt::println("  -d, --database FILENAME       database file name");
+    fmt::println("  -u, --ui   [SCRIPT|web|gui]   execute commands from SCRIPT file");
+    fmt::println("                                display a Webbrowser instead of command line");
+    fmt::println("                                display a Graphical User Interface.");
+    fmt::println("                                If no --ui is given, the program executes at Command Line");
+    fmt::println("  -h, --help                    print this help");
 }
 
 //-----------------------------------------------------------------------------
@@ -83,7 +84,7 @@ std::pair<std::string, std::string> getArgs(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    std::cout << "Key value pair" << std::endl;
+    fmt::println("Key value pair");
 
     std::pair<std::string, std::string> arguments{ getArgs(argc, argv) };
     std::string database{ arguments.first };
@@ -99,7 +100,7 @@ int main(int argc, char *argv[])
         Core core{ interface, storage };
         core.loop();
     } catch (const std::runtime_error &ex) {
-        std::cerr << ex.what() << std::endl;
+        fmt::println(stderr, "{}", ex.what());
         return EXIT_FAILURE;
     }
 

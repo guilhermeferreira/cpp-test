@@ -11,7 +11,7 @@ Packeges
 - [x] Cppcheck 2.3 -> 2.7 [https://github.com/danmar/cppcheck/archive/2.7.tar.gz]
 - [ ] Valgrind 3.14.0 -> 3.16.1
 - [ ] AFL 2.57b -> AFL++ 4.00c [https://aflplus.plus/]
-- [ ] Add {fmt} library
+- [x] Add {fmt} library
 - [x] Use FetchContent instead of the install scripts for SQLite.
 - [ ] Use FetchContent instead of the install scripts for Google Test.
 - [ ] Use FetchContent instead of the install scripts for Google Benchmark.

@@ -1,6 +1,9 @@
 # package: find external packages
 include(FindPkgConfig)
 
+# package: add {fmt} library
+include(${CMAKE_SOURCE_DIR}/cmake/fmt.cmake)
+
 # cmake: add subdir for interface
 add_subdirectory(interface)
 
@@ -37,6 +40,7 @@ endif()
 target_link_libraries(${TARGET}
     ${TARGET}_interface
     ${TARGET}_persistence
+    fmt
 )
 
 # cmake: install

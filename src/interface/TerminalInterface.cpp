@@ -1,6 +1,8 @@
 #include "TerminalInterface.hpp"
 
-#include <iostream>     // for char_traits, operator<<, cout, endl, ostream
+#include <string>     // for getline, string
+
+#include <fmt/core.h>
 
 #include "strings.hpp"  // for PROMPT
 
@@ -9,7 +11,7 @@
 
 std::string TerminalInterface::request()
 {
-    std::cout << PROMPT;
+    fmt::print("{}", PROMPT);
     std::string line{};
     std::getline(std::cin, line);
 
@@ -20,7 +22,7 @@ std::string TerminalInterface::request()
 
 void TerminalInterface::reply(const std::string_view resp)
 {
-    std::cout << resp << std::endl;
+    fmt::println("{}", resp);
 }
 
 //-----------------------------------------------------------------------------

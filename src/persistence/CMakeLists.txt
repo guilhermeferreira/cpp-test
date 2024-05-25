@@ -38,5 +38,6 @@ endif()
 target_link_libraries(${TARGET}_persistence
     sqlite3
     ${Boost_LIBRARIES}
+    fmt
     -lstdc++fs
 )

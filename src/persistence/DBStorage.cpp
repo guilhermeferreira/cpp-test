@@ -2,9 +2,10 @@
 
 #include <cassert>
 
-#include <sstream>
 #include <stdexcept>
 #include <vector>
+
+#include <fmt/core.h>
 
 
 //-----------------------------------------------------------------------------
@@ -30,15 +31,11 @@ DBStorage::DBStorage(const std::string_view filename)
 
     // Check if table exists, otherwise create it
     // ./sqlite data.db "SELECT name FROM sqlite_master WHERE type='table' AND name='storage'"
-    std::stringstream select;
-    select << "SELECT name FROM sqlite_master WHERE type='table' AND name='storage'";
-    exec(select.str());
+    exec("SELECT name FROM sqlite_master WHERE type='table' AND name='storage'");
 
     if (execResp.empty()) {
         // ./sqlite data.db "CREATE TABLE storage ( key varchar(255), value varchar(255) )"
-        std::stringstream create;
-        create << "CREATE TABLE storage ( key varchar(255), value varchar(255) )";
-        exec(create.str());
+        exec("CREATE TABLE storage ( key varchar(255), value varchar(255) )");
     }
 
     assert(_db);
@@ -76,11 +73,7 @@ std::string DBStorage::get(
     assert(_db);
 
     // ./sqlite data.db "SELECT value FROM storage WHERE key='key'"
-    std::stringstream query;
-    query << "SELECT value FROM storage ";
-    query << "WHERE key='" << key << "'";
-
-    exec(query.str());
+    exec(fmt::format("SELECT value FROM storage WHERE key='{}'", key));
 
     // NOTE: throw an exception to distinguish when a key has an empty value
     //       from when the key was never added. If we return empty string to
@@ -126,11 +119,7 @@ void DBStorage::del(
     assert(_db);
 
     // ./sqlite data.db "DELETE FROM storage WHERE key='key'"
-    std::stringstream query;
-    query << "DELETE FROM storage ";
-    query << "WHERE key='" << key << "'";
-
-    exec(query.str());
+    exec(fmt::format("DELETE FROM storage WHERE key='{}'", key));
 }
 
 //-----------------------------------------------------------------------------
@@ -145,12 +134,7 @@ void DBStorage::update(
     assert(_db);
 
     // ./sqlite data.db "UPDATE storage SET value='value' WHERE key='key'"
-    std::stringstream query;
-    query << "UPDATE storage ";
-    query << "SET value= '" << value << "' ";
-    query << "WHERE key = '" << key << "'";
-
-    exec(query.str());
+    exec(fmt::format("UPDATE storage SET value='{}' WHERE key='{}'", value, key));
 }
 
 //-----------------------------------------------------------------------------
@@ -165,11 +149,7 @@ void DBStorage::insert(
     assert(_db);
 
     // ./sqlite data.db "INSERT INTO storage (key, value) VALUES ('key', 'value')"
-    std::stringstream query;
-    query << "INSERT INTO storage (key, value) ";
-    query << "VALUES ('" << key << "','" << value << "')";
-
-    exec(query.str());
+    exec(fmt::format("INSERT INTO storage (key, value) VALUES ('{}','{}')", key, value));
 }
 
 //-----------------------------------------------------------------------------
