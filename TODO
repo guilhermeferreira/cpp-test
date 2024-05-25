@@ -11,6 +11,20 @@ Packeges
 - [x] Cppcheck 2.3 -> 2.7 [https://github.com/danmar/cppcheck/archive/2.7.tar.gz]
 - [ ] Valgrind 3.14.0 -> 3.16.1
 - [ ] AFL 2.57b -> AFL++ 4.00c [https://aflplus.plus/]
+- [ ] Add {fmt} library
+- [x] Use FetchContent instead of the install scripts for SQLite.
+- [ ] Use FetchContent instead of the install scripts for Google Test.
+- [ ] Use FetchContent instead of the install scripts for Google Benchmark.
+- [ ] Use FetchContent instead of the install scripts. See the CMake tutorial
+- [ ] Use Conan instead of FetchContent
+
+[ ] Set modules path
+    # Semicolon-separated list of directories, represented using forward slashes,
+    # specifying a search path for CMake modules to be loaded by the include() or
+    # find_package()
+    set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_SOURCE_DIR}/cmake/")
+
+[ ] Add CI file to run the tests in a pipeline
 
 [ ] Remove unit test build from build.sh
 

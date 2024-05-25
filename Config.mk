@@ -32,11 +32,6 @@ CPPCHECK_FILE=cppcheck-2.3.tar.gz
 CPPCHECK_LINK=https://github.com/danmar/cppcheck.git
 CPPCHECK_DIR=cppcheck-2.3
 
-# SQLite (3.34.0)
-SQLITE_FILE=sqlite-autoconf-3340000.tar.gz
-SQLITE_LINK=https://www.sqlite.org/2020/$SQLITE_FILE
-SQLITE_DIR=sqlite-autoconf-3340000
-
 # Crow (0.1)
 CROW_FILE=crow_all.h
 CROW_LINK=https://github.com/ipkn/crow/releases/download/v0.1/$CROW_FILE

@@ -36,7 +36,7 @@ endif()
 
 # linker: link the program against the libraries
 target_link_libraries(${TARGET}_persistence
-    ${SQLite3_LIBRARIES}
+    sqlite3
     ${Boost_LIBRARIES}
     -lstdc++fs
 )

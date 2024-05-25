@@ -34,8 +34,7 @@ DBStorage::DBStorage(const std::string_view filename)
     select << "SELECT name FROM sqlite_master WHERE type='table' AND name='storage'";
     exec(select.str());
 
-    std::string value{ execResp[0] };
-    if (value.empty()) {
+    if (execResp.empty()) {
         // ./sqlite data.db "CREATE TABLE storage ( key varchar(255), value varchar(255) )"
         std::stringstream create;
         create << "CREATE TABLE storage ( key varchar(255), value varchar(255) )";
