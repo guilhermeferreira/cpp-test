@@ -1,5 +1,5 @@
 # GCC (11.2.0)
-FROM gcc:11.2.0 AS dist
+FROM gcc:14 AS dist
 
 WORKDIR /usr/src/
 
